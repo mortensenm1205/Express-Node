@@ -5,7 +5,7 @@ function readData(filename) {
   let body = "";
 
   return new Promise((resolve, reject) => {
-    fs.readFile(filename, 'utf8', (err, data) => {
+    fs.readFile(`${__dirname}/${filename}`, 'utf8', (err, data) => {
       if(err) {
         reject(new Error("whoops"));
       }
@@ -15,10 +15,4 @@ function readData(filename) {
   });
 };
 
-function getData(filename) {
-  readData(`${__dirname}/${filename}`).then((message) => {
-    console.log(message[2]);
-  });
-}
-
-module.exports = getData;
+module.exports = readData;
