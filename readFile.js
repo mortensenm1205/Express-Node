@@ -15,9 +15,10 @@ function readData(filename) {
   });
 };
 
-
-module.exports = function(filename) {
+function getData(filename) {
   readData(`${__dirname}/${filename}`).then((message) => {
-    console.log(message[0].name, message[0].capital);
+    console.log(message[2]);
   });
 }
+
+module.exports = getData;
