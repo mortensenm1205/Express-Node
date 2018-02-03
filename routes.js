@@ -7,30 +7,18 @@ var readFile = require('./readFile.js');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-app.use('/', express.static('public'));
+app.get('/', (req, res) => {
+  fs.readFile('countries2.json', 'utf8', (err, data) => {
+    if (err) throw err;
+    obj = JSON.parse(data);
+    res.write(JSON.stringify(obj[0]));
+  });
 
-// app.get('/', (req, res) => {
-//   fs.readFile('countries2.json', 'utf8', (err, data) => {
-//     if (err) throw err;
-//     obj = JSON.parse(data);
-//     res.write(JSON.stringify(obj[0]));
-//   });
-//
-//   readFile('countries2.json').then((message) => {
-//     res.write(JSON.stringify(message[1]));
-//     res.end();
-//   });
-// });
-
-app.route('/passed')
-  .post( (req, res) => {
-    res.send(req.body);
-  })
-  .get((req, res) => {
-    res.send('Hello ' + req.query.id + req.query.second);
-  })
-
-
+  readFile('countries2.json').then((message) => {
+    res.write(JSON.stringify(message[1]));
+    res.end();
+  });
+});
 
 app.listen('9000', ()=> {
   console.log("On port 9000!");
