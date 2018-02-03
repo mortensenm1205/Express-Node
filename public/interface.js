@@ -20,10 +20,14 @@ $(function() {
 
     event.preventDefault();
     $.ajax({
-      type: 'GET',
+      method: 'POST',
       url: baseURL + $.param(objTest),
-      success: function(response) {
-        $body.html(response);
+      data: $.param(objTest),
+      success: function(data) {
+        if(this.type === 'GET') {
+          window.location.replace(this.url);
+        }
+        $body.html(data);
       }
     });
   });

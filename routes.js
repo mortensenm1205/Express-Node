@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var readFile = require('./readFile.js');
 
+app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.json());
+
 app.use('/', express.static('public'));
 
 // app.get('/', (req, res) => {
@@ -19,10 +22,13 @@ app.use('/', express.static('public'));
 //   });
 // });
 
-
-app.get('/passed', (req, res) => {
-  res.send('Hello ' + req.query.id + req.query.second);
-});
+app.route('/passed')
+  .post( (req, res) => {
+    res.send(req.body);
+  })
+  .get((req, res) => {
+    res.send('Hello ' + req.query.id + req.query.second);
+  })
 
 
 
